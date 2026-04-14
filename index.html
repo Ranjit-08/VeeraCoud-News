@@ -32,221 +32,49 @@
 html{scroll-behavior:smooth}
 body{font-family:'EB Garamond',Georgia,serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
 
-/* ═══════════════════════════════════════
-   SPLASH SCREEN
-═══════════════════════════════════════ */
 #splash {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  background: #050505;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 0;
+  position: fixed; inset: 0; z-index: 9999; background: #050505;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0;
   animation: splashFadeOut 0.7s ease 3.2s forwards;
 }
+@keyframes splashFadeOut { from{opacity:1;pointer-events:all} to{opacity:0;pointer-events:none} }
+.splash-bg-cat { position:absolute; inset:0; background:url('https://static.vecteezy.com/system/resources/thumbnails/045/720/728/small_2x/dark-cat-head-free-png.png') center/cover no-repeat; filter:blur(14px) brightness(0.07) saturate(0.3); transform:scale(1.1); }
+.splash-vignette { position:absolute; inset:0; background:radial-gradient(ellipse 70% 70% at 50% 50%,transparent 15%,rgba(3,3,3,0.96) 100%); }
+.splash-top-rule { position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,transparent,var(--gold-dim),var(--gold),var(--gold-lt),var(--gold),var(--gold-dim),transparent); animation:ruleExpand 0.8s ease 0.2s both; transform-origin:center; }
+.splash-bot-rule { position:absolute; bottom:0; left:0; right:0; height:2px; background:linear-gradient(90deg,transparent,var(--gold-dim),var(--gold),var(--gold-lt),var(--gold),var(--gold-dim),transparent); animation:ruleExpand 0.8s ease 0.2s both; }
+@keyframes ruleExpand { from{transform:scaleX(0);opacity:0} to{transform:scaleX(1);opacity:1} }
+.splash-content { position:relative; z-index:2; display:flex; flex-direction:column; align-items:center; gap:0; }
+.splash-logo-wrap { width:110px; height:110px; border-radius:50%; overflow:hidden; border:1px solid var(--gold-dim); box-shadow:0 0 40px rgba(201,168,76,0.12),0 0 80px rgba(201,168,76,0.05); margin-bottom:30px; animation:logoReveal 0.9s cubic-bezier(0.22,1,0.36,1) 0.4s both; }
+@keyframes logoReveal { from{opacity:0;transform:scale(0.7);filter:blur(8px)} to{opacity:1;transform:scale(1);filter:blur(0)} }
+.splash-logo-wrap img { width:100%; height:100%; object-fit:cover; filter:brightness(0.85) contrast(1.1); }
+.splash-brand { font-family:'Playfair Display',Georgia,serif; font-size:58px; font-weight:900; letter-spacing:-1px; line-height:1; color:var(--parchment); animation:textReveal 0.8s cubic-bezier(0.22,1,0.36,1) 0.75s both; margin-bottom:8px; }
+.splash-brand span { background:linear-gradient(135deg,var(--gold-lt),var(--gold) 50%,var(--gold-dk)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+.splash-tagline { font-family:'Cormorant Garamond',Georgia,serif; font-style:italic; font-size:18px; color:var(--text-dim); letter-spacing:0.5px; animation:textReveal 0.8s cubic-bezier(0.22,1,0.36,1) 0.95s both; margin-bottom:28px; }
+.splash-divider { width:1px; height:40px; background:linear-gradient(to bottom,var(--gold-dim),transparent); margin-bottom:28px; animation:lineGrow 0.6s ease 1.1s both; }
+@keyframes lineGrow { from{transform:scaleY(0);opacity:0} to{transform:scaleY(1);opacity:1} }
+.splash-byline { font-family:'DM Mono',monospace; font-size:11px; letter-spacing:4px; text-transform:uppercase; color:var(--text-mute); animation:textReveal 0.8s ease 1.25s both; margin-bottom:6px; }
+.splash-author { font-family:'DM Mono',monospace; font-size:13.5px; letter-spacing:5px; text-transform:uppercase; color:var(--gold); animation:textReveal 0.8s ease 1.45s both; }
+.splash-loader { position:absolute; bottom:48px; left:50%; transform:translateX(-50%); display:flex; align-items:center; gap:8px; animation:textReveal 0.5s ease 1.8s both; }
+.splash-loader-bar { width:80px; height:1px; background:var(--border); overflow:hidden; position:relative; }
+.splash-loader-bar::after { content:''; position:absolute; inset:0; background:var(--gold); animation:loadBar 1.2s ease 1.9s both; transform-origin:left; transform:scaleX(0); }
+@keyframes loadBar { from{transform:scaleX(0)} to{transform:scaleX(1)} }
+.splash-loader-txt { font-family:'DM Mono',monospace; font-size:9px; letter-spacing:2.5px; text-transform:uppercase; color:var(--text-mute); }
+@keyframes textReveal { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
 
-@keyframes splashFadeOut {
-  from { opacity: 1; pointer-events: all; }
-  to   { opacity: 0; pointer-events: none; }
-}
-
-.splash-bg-cat {
-  position: absolute;
-  inset: 0;
-  background: url('https://static.vecteezy.com/system/resources/thumbnails/045/720/728/small_2x/dark-cat-head-free-png.png') center/cover no-repeat;
-  filter: blur(14px) brightness(0.07) saturate(0.3);
-  transform: scale(1.1);
-}
-
-.splash-vignette {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse 70% 70% at 50% 50%, transparent 15%, rgba(3,3,3,0.96) 100%);
-}
-
-.splash-top-rule {
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--gold-dim), var(--gold), var(--gold-lt), var(--gold), var(--gold-dim), transparent);
-  animation: ruleExpand 0.8s ease 0.2s both;
-  transform-origin: center;
-}
-.splash-bot-rule {
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--gold-dim), var(--gold), var(--gold-lt), var(--gold), var(--gold-dim), transparent);
-  animation: ruleExpand 0.8s ease 0.2s both;
-}
-@keyframes ruleExpand {
-  from { transform: scaleX(0); opacity: 0; }
-  to   { transform: scaleX(1); opacity: 1; }
-}
-
-.splash-content {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0;
-}
-
-.splash-logo-wrap {
-  width: 110px;
-  height: 110px;
-  border-radius: 50%;
-  overflow: hidden;
-  border: 1px solid var(--gold-dim);
-  box-shadow: 0 0 40px rgba(201,168,76,0.12), 0 0 80px rgba(201,168,76,0.05);
-  margin-bottom: 30px;
-  animation: logoReveal 0.9s cubic-bezier(0.22,1,0.36,1) 0.4s both;
-}
-@keyframes logoReveal {
-  from { opacity: 0; transform: scale(0.7); filter: blur(8px); }
-  to   { opacity: 1; transform: scale(1);   filter: blur(0); }
-}
-
-.splash-logo-wrap img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: brightness(0.85) contrast(1.1);
-}
-
-.splash-brand {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: 58px;
-  font-weight: 900;
-  letter-spacing: -1px;
-  line-height: 1;
-  color: var(--parchment);
-  animation: textReveal 0.8s cubic-bezier(0.22,1,0.36,1) 0.75s both;
-  margin-bottom: 8px;
-}
-.splash-brand span {
-  background: linear-gradient(135deg, var(--gold-lt), var(--gold) 50%, var(--gold-dk));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.splash-tagline {
-  font-family: 'Cormorant Garamond', Georgia, serif;
-  font-style: italic;
-  font-size: 18px;
-  color: var(--text-dim);
-  letter-spacing: 0.5px;
-  animation: textReveal 0.8s cubic-bezier(0.22,1,0.36,1) 0.95s both;
-  margin-bottom: 28px;
-}
-
-.splash-divider {
-  width: 1px;
-  height: 40px;
-  background: linear-gradient(to bottom, var(--gold-dim), transparent);
-  margin-bottom: 28px;
-  animation: lineGrow 0.6s ease 1.1s both;
-}
-@keyframes lineGrow {
-  from { transform: scaleY(0); opacity: 0; }
-  to   { transform: scaleY(1); opacity: 1; }
-}
-
-.splash-byline {
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  color: var(--text-mute);
-  animation: textReveal 0.8s ease 1.25s both;
-  margin-bottom: 6px;
-}
-
-.splash-author {
-  font-family: 'DM Mono', monospace;
-  font-size: 13.5px;
-  letter-spacing: 5px;
-  text-transform: uppercase;
-  color: var(--gold);
-  animation: textReveal 0.8s ease 1.45s both;
-}
-
-.splash-loader {
-  position: absolute;
-  bottom: 48px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  animation: textReveal 0.5s ease 1.8s both;
-}
-.splash-loader-bar {
-  width: 80px;
-  height: 1px;
-  background: var(--border);
-  overflow: hidden;
-  position: relative;
-}
-.splash-loader-bar::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: var(--gold);
-  animation: loadBar 1.2s ease 1.9s both;
-  transform-origin: left;
-  transform: scaleX(0);
-}
-@keyframes loadBar { from { transform:scaleX(0); } to { transform:scaleX(1); } }
-.splash-loader-txt {
-  font-family: 'DM Mono', monospace;
-  font-size: 9px;
-  letter-spacing: 2.5px;
-  text-transform: uppercase;
-  color: var(--text-mute);
-}
-
-@keyframes textReveal {
-  from { opacity: 0; transform: translateY(12px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-/* ═══════════════════════════════════════
-   BACKGROUND
-═══════════════════════════════════════ */
 .bg { position:fixed; inset:0; z-index:0; pointer-events:none; }
 .bg-cat { position:absolute; inset:0; background:url('https://static.vecteezy.com/system/resources/thumbnails/045/720/728/small_2x/dark-cat-head-free-png.png') center/cover no-repeat; filter:blur(10px) brightness(0.10) grayscale(0.3) contrast(1.1); transform:scale(1.08); }
-.bg-vignette { position:absolute; inset:0; background: radial-gradient(ellipse 80% 80% at 50% 50%, transparent 15%, rgba(5,5,5,0.92) 100%), radial-gradient(ellipse 100% 50% at 50% 0%, rgba(5,5,5,0.75) 0%, transparent 65%), radial-gradient(ellipse 100% 50% at 50% 100%, rgba(5,5,5,0.9) 0%, transparent 65%); }
+.bg-vignette { position:absolute; inset:0; background:radial-gradient(ellipse 80% 80% at 50% 50%,transparent 15%,rgba(5,5,5,0.92) 100%),radial-gradient(ellipse 100% 50% at 50% 0%,rgba(5,5,5,0.75) 0%,transparent 65%),radial-gradient(ellipse 100% 50% at 50% 100%,rgba(5,5,5,0.9) 0%,transparent 65%); }
 .bg-noise { position:absolute; inset:0; opacity:0.025; background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); background-size:180px 180px; }
 .bg-gold-top { position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,transparent,var(--gold-dim),var(--gold),var(--gold-lt),var(--gold),var(--gold-dim),transparent); }
 
-/* ═══════════════════════════════════════
-   TICKER
-═══════════════════════════════════════ */
 .ticker { position:relative; z-index:10; background:rgba(3,3,3,0.99); border-bottom:1px solid var(--border); height:36px; display:flex; align-items:center; overflow:hidden; }
 .ticker-badge { font-family:'DM Mono',monospace; font-size:8.5px; letter-spacing:3px; text-transform:uppercase; color:#050505; background:var(--gold); padding:0 18px; height:100%; display:flex; align-items:center; flex-shrink:0; font-weight:500; }
 .ticker-outer { flex:1; overflow:hidden; height:100%; display:flex; align-items:center; }
-.ticker-track {
-  display: flex;
-  white-space: nowrap;
-  will-change: transform;
-  animation: tickerMove 55s linear infinite;
-}
+.ticker-track { display:flex; white-space:nowrap; will-change:transform; animation:tickerMove 55s linear infinite; }
 .ticker-item { font-family:'DM Mono',monospace; font-size:10px; color:var(--text-mute); padding-right:64px; flex-shrink:0; }
 .ticker-item em { color:var(--gold); font-style:normal; margin-right:8px; }
-@keyframes tickerMove {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
+@keyframes tickerMove { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
 
-/* ═══════════════════════════════════════
-   MASTHEAD
-═══════════════════════════════════════ */
 .masthead { position:relative; z-index:10; text-align:center; padding:52px 24px 38px; border-bottom:1px solid var(--border); background:rgba(3,3,3,0.65); backdrop-filter:blur(22px); }
 .mh-kicker { font-family:'DM Mono',monospace; font-size:9px; letter-spacing:5px; text-transform:uppercase; color:var(--gold-dim); margin-bottom:20px; }
 .mh-rule { display:flex; align-items:center; justify-content:center; gap:16px; margin-bottom:14px; }
@@ -262,11 +90,8 @@ body{font-family:'EB Garamond',Georgia,serif;background:var(--bg);color:var(--te
 .refresh-btn { font-family:'DM Mono',monospace; font-size:9.5px; letter-spacing:2px; text-transform:uppercase; color:var(--gold); background:transparent; border:1px solid var(--gold-dim); padding:9px 22px; cursor:pointer; transition:all .3s; display:inline-flex; align-items:center; gap:8px; }
 .refresh-btn:hover { background:rgba(201,168,76,.08); border-color:var(--gold); box-shadow:0 0 24px rgba(201,168,76,.12); }
 .refresh-btn.loading .spin { animation:spinIt .9s linear infinite; }
-@keyframes spinIt { to { transform:rotate(360deg); } }
+@keyframes spinIt { to{transform:rotate(360deg)} }
 
-/* ═══════════════════════════════════════
-   STICKY NAV
-═══════════════════════════════════════ */
 .nav { position:sticky; top:0; z-index:100; background:rgba(3,3,3,.99); border-bottom:1px solid var(--border); backdrop-filter:blur(24px); }
 .nav-inner { max-width:1360px; margin:0 auto; padding:0 32px; display:flex; align-items:center; height:50px; gap:2px; overflow-x:auto; scrollbar-width:none; }
 .nav-inner::-webkit-scrollbar { display:none; }
@@ -274,40 +99,27 @@ body{font-family:'EB Garamond',Georgia,serif;background:var(--bg);color:var(--te
 .nav-btn { font-family:'DM Mono',monospace; font-size:9.5px; letter-spacing:2px; text-transform:uppercase; color:var(--text-mute); background:transparent; border:none; border-bottom:2px solid transparent; padding:10px 16px; cursor:pointer; transition:all .25s; white-space:nowrap; flex-shrink:0; }
 .nav-btn:hover { color:var(--text-dim); }
 .nav-btn.active { color:var(--gold); border-bottom-color:var(--gold); }
-.nav-btn[data-tag=aws].active   { color:var(--aws);        border-bottom-color:var(--aws); }
-.nav-btn[data-tag=azure].active { color:var(--azure);      border-bottom-color:var(--azure); }
-.nav-btn[data-tag=gcp].active   { color:var(--gcp);        border-bottom-color:var(--gcp); }
+.nav-btn[data-tag=aws].active   { color:var(--aws); border-bottom-color:var(--aws); }
+.nav-btn[data-tag=azure].active { color:var(--azure); border-bottom-color:var(--azure); }
+.nav-btn[data-tag=gcp].active   { color:var(--gcp); border-bottom-color:var(--gcp); }
 .nav-btn[data-tag=multicloud].active { color:var(--multicloud); border-bottom-color:var(--multicloud); }
 
-/* ═══════════════════════════════════════
-   PAGE / LAYOUT
-═══════════════════════════════════════ */
 .page { position:relative; z-index:1; max-width:1360px; margin:0 auto; padding:0 32px 100px; }
-
 .sec-head { display:flex; align-items:center; gap:18px; padding:40px 0 24px; }
 .sec-title { font-family:'DM Mono',monospace; font-size:9px; letter-spacing:4px; text-transform:uppercase; color:var(--gold-dk); white-space:nowrap; }
 .sec-title::before,.sec-title::after { content:'✦'; margin:0 10px; font-size:8px; }
 .sec-line { flex:1; height:1px; background:linear-gradient(90deg,var(--border),transparent); }
 .sec-count { font-family:'DM Mono',monospace; font-size:9px; color:var(--text-mute); white-space:nowrap; }
 
-/* ═══════════════════════════════════════
-   STATS ROW
-═══════════════════════════════════════ */
 .stats-row { display:grid; grid-template-columns:repeat(4,1fr); gap:1px; border:1px solid var(--border); background:var(--border); margin-bottom:1px; }
 .stat-cell { background:var(--card-bg); backdrop-filter:blur(14px); padding:22px 26px; }
 .stat-lbl { font-family:'DM Mono',monospace; font-size:8px; letter-spacing:3px; text-transform:uppercase; color:var(--text-mute); margin-bottom:8px; }
 .stat-val { font-family:'Playfair Display',serif; font-size:38px; font-weight:700; color:var(--gold); line-height:1; }
 .stat-sub { font-family:'EB Garamond',serif; font-style:italic; font-size:13px; color:var(--text-mute); margin-top:5px; }
 
-/* ═══════════════════════════════════════
-   FEATURED GRID
-═══════════════════════════════════════ */
 .feat-grid { display:grid; grid-template-columns:1fr 370px; grid-template-rows:auto auto; gap:1px; border:1px solid var(--border); background:var(--border); margin-bottom:1px; }
 .feat-hero { grid-row:1/3; }
 
-/* ═══════════════════════════════════════
-   CARDS
-═══════════════════════════════════════ */
 .card { background:var(--card-bg); backdrop-filter:blur(16px); cursor:pointer; transition:background .3s; position:relative; overflow:hidden; animation:fadeUp .5s ease both; }
 @keyframes fadeUp { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
 .card:hover { background:var(--card-bg2); }
@@ -319,28 +131,22 @@ body{font-family:'EB Garamond',Georgia,serif;background:var(--bg);color:var(--te
 .hero-icon { font-size:96px; opacity:.08; }
 .hero-img::after { content:''; position:absolute; inset:0; background:linear-gradient(to bottom,transparent 40%,var(--card-bg) 100%); }
 .hero-body { padding:30px 34px 34px; display:flex; flex-direction:column; flex:1; }
-
 .card-side { display:flex; padding:24px 26px; gap:18px; align-items:flex-start; }
 .side-icon { font-size:28px; opacity:.2; flex-shrink:0; margin-top:4px; }
 .side-body { flex:1; }
-
 .card-list { padding:26px 28px; display:flex; flex-direction:column; }
 
-/* ═══════════════════════════════════════
-   CARD INTERNALS
-═══════════════════════════════════════ */
 .c-tags { display:flex; gap:7px; margin-bottom:13px; flex-wrap:wrap; align-items:center; }
 .tag { font-family:'DM Mono',monospace; font-size:8px; letter-spacing:2px; text-transform:uppercase; padding:3px 9px; border:1px solid currentColor; opacity:.65; }
-.tag-aws { color:var(--aws); } .tag-azure { color:var(--azure); } .tag-gcp { color:var(--gcp); }
-.tag-devops { color:var(--devops); } .tag-multicloud { color:var(--multicloud); }
-.tag-kubernetes { color:#72d9cf; } .tag-terraform { color:#b08cf0; }
+.tag-aws{color:var(--aws)} .tag-azure{color:var(--azure)} .tag-gcp{color:var(--gcp)}
+.tag-devops{color:var(--devops)} .tag-multicloud{color:var(--multicloud)}
+.tag-kubernetes{color:#72d9cf} .tag-terraform{color:#b08cf0}
 .c-cat { font-family:'DM Mono',monospace; font-size:8px; letter-spacing:1.5px; text-transform:uppercase; color:var(--text-mute); margin-left:auto; }
 .c-num { font-family:'Playfair Display',serif; font-size:58px; font-weight:900; color:rgba(201,168,76,.07); line-height:1; float:right; margin:-4px -2px 0 14px; }
 
 .t-hero { font-family:'Playfair Display',Georgia,serif; font-size:26px; font-weight:700; line-height:1.33; color:var(--parchment); margin-bottom:14px; }
 .t-side { font-family:'Playfair Display',Georgia,serif; font-size:15.5px; font-weight:600; line-height:1.45; color:var(--parchment); margin-bottom:9px; }
 .t-list { font-family:'Playfair Display',Georgia,serif; font-size:17px; font-weight:600; line-height:1.42; color:var(--parchment); margin-bottom:10px; }
-
 .s-hero { font-family:'EB Garamond',Georgia,serif; font-size:16px; line-height:1.8; color:var(--text-dim); margin-bottom:20px; flex:1; }
 .s-side { font-family:'EB Garamond',Georgia,serif; font-size:13px; line-height:1.72; color:var(--text-mute); }
 .s-list { font-family:'EB Garamond',Georgia,serif; font-size:14.5px; line-height:1.76; color:var(--text-dim); margin-bottom:18px; flex:1; }
@@ -351,14 +157,8 @@ body{font-family:'EB Garamond',Georgia,serif;background:var(--bg);color:var(--te
 .c-read { font-family:'DM Mono',monospace; font-size:8.5px; letter-spacing:2px; text-transform:uppercase; color:var(--gold-dim); display:flex; align-items:center; gap:5px; transition:color .2s,gap .2s; }
 .card:hover .c-read { color:var(--gold); gap:9px; }
 
-/* ═══════════════════════════════════════
-   ARTICLES GRID
-═══════════════════════════════════════ */
 .arts-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; border:1px solid var(--border); background:var(--border); }
 
-/* ═══════════════════════════════════════
-   LOADING / ERROR
-═══════════════════════════════════════ */
 .load-panel { grid-column:1/-1; display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:360px; gap:22px; background:var(--card-bg); }
 .load-ring { width:48px; height:48px; border:2px solid var(--border); border-top-color:var(--gold); border-radius:50%; animation:spinIt 1s linear infinite; }
 .load-txt { font-family:'DM Mono',monospace; font-size:9.5px; letter-spacing:4px; text-transform:uppercase; color:var(--text-mute); animation:pulseFade 2s ease-in-out infinite; }
@@ -366,9 +166,6 @@ body{font-family:'EB Garamond',Georgia,serif;background:var(--bg);color:var(--te
 @keyframes pulseFade { 0%,100%{opacity:1} 50%{opacity:.3} }
 .err-panel { grid-column:1/-1; text-align:center; padding:80px 40px; background:var(--card-bg); }
 
-/* ═══════════════════════════════════════
-   MODAL
-═══════════════════════════════════════ */
 .veil { display:none; position:fixed; inset:0; z-index:300; background:rgba(2,2,2,.94); backdrop-filter:blur(14px); align-items:center; justify-content:center; padding:28px; }
 .veil.open { display:flex; animation:fadeVeil .2s ease; }
 @keyframes fadeVeil { from{opacity:0} to{opacity:1} }
@@ -389,57 +186,47 @@ body{font-family:'EB Garamond',Georgia,serif;background:var(--bg);color:var(--te
 .m-cta { display:inline-block; font-family:'DM Mono',monospace; font-size:9.5px; letter-spacing:3px; text-transform:uppercase; color:var(--gold); border:1px solid var(--gold-dim); padding:12px 24px; text-decoration:none; transition:all .25s; }
 .m-cta:hover { background:rgba(201,168,76,.1); border-color:var(--gold); }
 
-::-webkit-scrollbar { width:5px; }
-::-webkit-scrollbar-track { background:transparent; }
-::-webkit-scrollbar-thumb { background:var(--gold-dim); }
+::-webkit-scrollbar{width:5px} ::-webkit-scrollbar-track{background:transparent} ::-webkit-scrollbar-thumb{background:var(--gold-dim)}
 
-@media(max-width:1100px) {
-  .feat-grid { grid-template-columns:1fr; grid-template-rows:auto; }
-  .feat-hero { grid-row:auto; }
-  .arts-grid { grid-template-columns:repeat(2,1fr); }
-  .stats-row { grid-template-columns:repeat(2,1fr); }
+@media(max-width:1100px){
+  .feat-grid{grid-template-columns:1fr;grid-template-rows:auto}
+  .feat-hero{grid-row:auto}
+  .arts-grid{grid-template-columns:repeat(2,1fr)}
+  .stats-row{grid-template-columns:repeat(2,1fr)}
 }
-@media(max-width:680px) {
-  .arts-grid { grid-template-columns:1fr; }
-  .mh-wordmark { font-size:46px; }
-  .mbox-inner { padding:32px 20px; }
-  .page { padding:0 14px 80px; }
-  .nav-inner { padding:0 14px; }
+@media(max-width:680px){
+  .arts-grid{grid-template-columns:1fr}
+  .mh-wordmark{font-size:46px}
+  .mbox-inner{padding:32px 20px}
+  .page{padding:0 14px 80px}
+  .nav-inner{padding:0 14px}
 }
 </style>
 </head>
 <body>
 
-<!-- ═══════════════ SPLASH SCREEN ═══════════════ -->
 <div id="splash">
   <div class="splash-bg-cat"></div>
   <div class="splash-vignette"></div>
   <div class="splash-top-rule"></div>
   <div class="splash-bot-rule"></div>
-
   <div class="splash-content">
     <div class="splash-logo-wrap">
       <img src="https://static.vecteezy.com/system/resources/thumbnails/045/720/728/small_2x/dark-cat-head-free-png.png" alt="CloudPulse Logo">
     </div>
-
     <div class="splash-brand">Cloud<span>Pulse</span></div>
     <div class="splash-tagline">Cloud & DevOps Intelligence</div>
-
     <div class="splash-divider"></div>
-
     <div class="splash-byline">News by</div>
-    <div class="splash-author">Veera&nbsp;Cloud</div>
+    <div class="splash-author">Veera Cloud</div>
   </div>
-
   <div class="splash-loader">
     <div class="splash-loader-bar"></div>
     <div class="splash-loader-txt">Loading</div>
     <div class="splash-loader-bar"></div>
   </div>
 </div>
-<!-- ════════════════════════════════════════════ -->
 
-<!-- Background -->
 <div class="bg">
   <div class="bg-cat"></div>
   <div class="bg-vignette"></div>
@@ -447,26 +234,19 @@ body{font-family:'EB Garamond',Georgia,serif;background:var(--bg);color:var(--te
   <div class="bg-gold-top"></div>
 </div>
 
-<!-- Ticker -->
 <div class="ticker">
   <div class="ticker-badge">Dispatches</div>
   <div class="ticker-outer">
     <div class="ticker-track" id="tickerTrack">
       <span class="ticker-item"><em>AWS</em>Graviton4 benchmarks show 40% compute gains over previous generation</span>
       <span class="ticker-item"><em>AZURE</em>AI Foundry opens in six new APAC regions this quarter</span>
-      <span class="ticker-item"><em>GCP</em>Kubernetes 1.32 reaches general availability with sidecar containers</span>
+      <span class="ticker-item"><em>GCP</em>Kubernetes reaches general availability with sidecar containers</span>
       <span class="ticker-item"><em>DEVOPS</em>GitHub Actions native OIDC federation cuts secret sprawl significantly</span>
-      <span class="ticker-item"><em>MULTICLOUD</em>Terraform 1.9 introduces provider functions and ephemeral resources</span>
-      <span class="ticker-item"><em>AWS</em>Graviton4 benchmarks show 40% compute gains over previous generation</span>
-      <span class="ticker-item"><em>AZURE</em>AI Foundry opens in six new APAC regions this quarter</span>
-      <span class="ticker-item"><em>GCP</em>Kubernetes 1.32 reaches general availability with sidecar containers</span>
-      <span class="ticker-item"><em>DEVOPS</em>GitHub Actions native OIDC federation cuts secret sprawl significantly</span>
-      <span class="ticker-item"><em>MULTICLOUD</em>Terraform 1.9 introduces provider functions and ephemeral resources</span>
+      <span class="ticker-item"><em>MULTICLOUD</em>Terraform introduces provider functions and ephemeral resources</span>
     </div>
   </div>
 </div>
 
-<!-- Masthead -->
 <div class="masthead">
   <div class="mh-kicker">The Cloud Intelligence Review</div>
   <div class="mh-rule">
@@ -475,7 +255,7 @@ body{font-family:'EB Garamond',Georgia,serif;background:var(--bg);color:var(--te
     <div class="mh-line r"></div>
   </div>
   <div class="mh-wordmark">Cloud<span>Pulse</span></div>
-  <div class="mh-sub">AWS &middot; Azure &middot; GCP &middot; DevOps &middot; Multicloud</div>
+  <div class="mh-sub">AWS · Azure · GCP · DevOps · Multicloud</div>
   <div class="mh-meta">
     <div class="mh-meta-item" id="metaDate">—</div>
     <div class="mh-dot">◆</div>
@@ -485,22 +265,19 @@ body{font-family:'EB Garamond',Georgia,serif;background:var(--bg);color:var(--te
   </div>
 </div>
 
-<!-- Nav -->
 <div class="nav">
   <div class="nav-inner">
     <div class="nav-label">Edition</div>
-    <button class="nav-btn active" data-tag="all"        onclick="filterBy('all',this)">All Coverage</button>
-    <button class="nav-btn"        data-tag="aws"        onclick="filterBy('aws',this)">Amazon Web Services</button>
-    <button class="nav-btn"        data-tag="azure"      onclick="filterBy('azure',this)">Microsoft Azure</button>
-    <button class="nav-btn"        data-tag="gcp"        onclick="filterBy('gcp',this)">Google Cloud</button>
-    <button class="nav-btn"        data-tag="devops"     onclick="filterBy('devops',this)">DevOps</button>
-    <button class="nav-btn"        data-tag="multicloud" onclick="filterBy('multicloud',this)">Multicloud</button>
+    <button class="nav-btn active" data-tag="all" onclick="filterBy('all',this)">All Coverage</button>
+    <button class="nav-btn" data-tag="aws" onclick="filterBy('aws',this)">Amazon Web Services</button>
+    <button class="nav-btn" data-tag="azure" onclick="filterBy('azure',this)">Microsoft Azure</button>
+    <button class="nav-btn" data-tag="gcp" onclick="filterBy('gcp',this)">Google Cloud</button>
+    <button class="nav-btn" data-tag="devops" onclick="filterBy('devops',this)">DevOps</button>
+    <button class="nav-btn" data-tag="multicloud" onclick="filterBy('multicloud',this)">Multicloud</button>
   </div>
 </div>
 
 <div class="page">
-
-  <!-- Stats -->
   <div class="stats-row">
     <div class="stat-cell">
       <div class="stat-lbl">Articles Loaded</div>
@@ -524,13 +301,11 @@ body{font-family:'EB Garamond',Georgia,serif;background:var(--bg);color:var(--te
     </div>
   </div>
 
-  <!-- Featured -->
   <div class="sec-head">
     <div class="sec-title">Front Page</div>
     <div class="sec-line"></div>
     <div class="sec-count" id="featCount"></div>
   </div>
-
   <div class="feat-grid" id="featGrid">
     <div class="load-panel" style="grid-column:1/-1">
       <div class="load-ring"></div>
@@ -539,99 +314,117 @@ body{font-family:'EB Garamond',Georgia,serif;background:var(--bg);color:var(--te
     </div>
   </div>
 
-  <!-- Latest -->
   <div class="sec-head">
     <div class="sec-title">Latest Dispatches</div>
     <div class="sec-line"></div>
     <div class="sec-count" id="latestCount"></div>
   </div>
-
   <div class="arts-grid" id="artsGrid"></div>
-
 </div>
 
-<!-- Modal -->
 <div class="veil" id="veil" onclick="veilClick(event)">
   <div class="mbox">
     <div class="mbox-bar"></div>
     <div class="mbox-inner">
       <button class="m-close" onclick="closeModal()">ESC / CLOSE</button>
       <div class="m-kicker" id="mKicker"></div>
-      <div class="m-title"  id="mTitle"></div>
-      <div class="m-tags"   id="mTags"></div>
-      <div class="m-meta"   id="mMeta"></div>
-      <div class="m-body"   id="mBody"></div>
+      <div class="m-title" id="mTitle"></div>
+      <div class="m-tags" id="mTags"></div>
+      <div class="m-meta" id="mMeta"></div>
+      <div class="m-body" id="mBody"></div>
       <div class="m-divider"></div>
       <a class="m-cta" id="mCta" href="#" target="_blank">Read Full Article →</a>
     </div>
   </div>
 </div>
 
-<!-- ✅ Load config BEFORE the main script — provides CONFIG.GROQ_KEY -->
-<script src="config.js"></script>
-
 <script>
-// Remove splash after animation
 setTimeout(() => {
-  const s = document.getElementById('splash');
-  if (s) s.remove();
+  const splash = document.getElementById('splash');
+  if (splash) splash.remove();
 }, 4000);
 
-// ✅ API key is now read from config.js — never hardcoded here
-const GROQ_KEY = (typeof CONFIG !== 'undefined' && CONFIG.GROQ_KEY)
-  ? CONFIG.GROQ_KEY
-  : null;
-
 let allArticles = [];
-let activeTag   = 'all';
+let activeTag = 'all';
 
-const tagCls  = {aws:'tag-aws',azure:'tag-azure',gcp:'tag-gcp',devops:'tag-devops',multicloud:'tag-multicloud',kubernetes:'tag-kubernetes',terraform:'tag-terraform'};
-const tagLbl  = {aws:'AWS',azure:'Azure',gcp:'GCP',devops:'DevOps',multicloud:'Multicloud',kubernetes:'Kubernetes',terraform:'Terraform'};
-const tagIcon = {aws:'⚡',azure:'⬡',gcp:'◈',devops:'⚙',multicloud:'☁',kubernetes:'⎈',terraform:'⬢'};
-const srcs    = ['AWS Blog','Azure Updates','Google Cloud Blog','The New Stack','InfoQ','DevOps.com','Cloud Native Now','SD Times','DZone Cloud','Container Journal','Tech Monitor','Platform Engineering Weekly'];
+const tagCls = {
+  aws:'tag-aws',
+  azure:'tag-azure',
+  gcp:'tag-gcp',
+  devops:'tag-devops',
+  multicloud:'tag-multicloud',
+  kubernetes:'tag-kubernetes',
+  terraform:'tag-terraform'
+};
+
+const tagLbl = {
+  aws:'AWS',
+  azure:'Azure',
+  gcp:'GCP',
+  devops:'DevOps',
+  multicloud:'Multicloud',
+  kubernetes:'Kubernetes',
+  terraform:'Terraform'
+};
+
+const tagIcon = {
+  aws:'⚡',
+  azure:'⬡',
+  gcp:'◈',
+  devops:'⚙',
+  multicloud:'☁',
+  kubernetes:'⎈',
+  terraform:'⬢'
+};
+
+const srcs = [
+  'AWS Blog',
+  'Azure Updates',
+  'Google Cloud Blog',
+  'The New Stack',
+  'InfoQ',
+  'DevOps.com',
+  'Cloud Native Now',
+  'SD Times',
+  'DZone Cloud',
+  'Container Journal',
+  'Tech Monitor',
+  'Platform Engineering Weekly'
+];
 
 function ago() {
   const pool = [4,9,14,22,31,44,57,73,96,120,154,195];
-  const m = pool[Math.floor(Math.random()*pool.length)];
-  return m < 60 ? m + 'm ago' : Math.floor(m/60) + 'h ' + m%60 + 'm ago';
+  const m = pool[Math.floor(Math.random() * pool.length)];
+  return m < 60 ? m + 'm ago' : Math.floor(m / 60) + 'h ' + (m % 60) + 'm ago';
 }
 
 function tagsHtml(tags) {
-  return (tags||[]).map(t=>`<span class="tag ${tagCls[t]||'tag-devops'}">${tagLbl[t]||t}</span>`).join('');
+  return (tags || []).map(t =>
+    `<span class="tag ${tagCls[t] || 'tag-devops'}">${tagLbl[t] || t}</span>`
+  ).join('');
 }
 
-function icon1(tags) { return tagIcon[(tags||[])[0]] || '☁'; }
+function icon1(tags) {
+  return tagIcon[(tags || [])[0]] || '☁';
+}
 
 async function fetchNews() {
-  // ✅ Guard: warn clearly if config.js is missing or key is not set
-  if (!GROQ_KEY) {
-    document.getElementById('featGrid').innerHTML = `
-      <div class="err-panel">
-        <div style="font-family:'Playfair Display',serif;font-size:22px;margin-bottom:12px;color:var(--parchment)">
-          Configuration Missing
-        </div>
-        <div style="font-family:'EB Garamond',serif;font-size:15px;color:var(--text-mute);margin-bottom:24px;max-width:460px;margin-left:auto;margin-right:auto">
-          No API key found. Please create a <code style="color:var(--gold)">config.js</code> file in the same folder as this HTML file
-          by copying <code style="color:var(--gold)">config.example.js</code> and filling in your Groq API key.
-        </div>
-      </div>`;
-    return;
-  }
-
   const btn = document.getElementById('refreshBtn');
   btn.classList.add('loading');
+
   document.getElementById('statCount').textContent = '—';
-  document.getElementById('statTime').textContent  = '—';
-  document.getElementById('featGrid').innerHTML = '<div class="load-panel" style="grid-column:1/-1"><div class="load-ring"></div><div class="load-txt">Compiling Intelligence</div><div class="load-sub">Fetching the latest cloud dispatches…</div></div>';
+  document.getElementById('statTime').textContent = '—';
+  document.getElementById('featGrid').innerHTML =
+    '<div class="load-panel" style="grid-column:1/-1"><div class="load-ring"></div><div class="load-txt">Compiling Intelligence</div><div class="load-sub">Fetching the latest cloud dispatches…</div></div>';
   document.getElementById('artsGrid').innerHTML = '';
-  document.getElementById('featCount').textContent   = '';
+  document.getElementById('featCount').textContent = '';
   document.getElementById('latestCount').textContent = '';
 
   const prompt = `You are a senior cloud technology editor. Generate exactly 12 realistic, detailed, technically precise news articles about AWS, Azure, GCP, DevOps, and multicloud — written as if published today.
 
 Return ONLY a raw JSON array (no markdown fences, no preamble). Each object:
 - "id": integer 1-12
-- "title": specific headline with real service names (EKS, AKS, BigQuery, ArgoCD, Bedrock, Cloud Run, Graviton4, etc.)
+- "title": specific headline with real service names
 - "summary": 2-3 sentence summary
 - "content": 5-6 substantial paragraphs with technical depth
 - "tags": 1-3 from ["aws","azure","gcp","devops","multicloud","kubernetes","terraform"]
@@ -641,31 +434,49 @@ Return ONLY a raw JSON array (no markdown fences, no preamble). Each object:
 Cover: (1)AWS compute, (2)Azure AI/ML, (3)GCP Kubernetes, (4)DevOps tooling, (5)Multicloud/FinOps, (6)AWS security, (7)Azure infra/networking, (8)GCP data/analytics, (9)IaC/Terraform, (10)Kubernetes ecosystem, (11)Cloud cost governance, (12)Platform engineering culture.`;
 
   try {
-    const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+    const res = await fetch('/api/news', {
       method: 'POST',
-      headers: {'Authorization':`Bearer ${GROQ_KEY}`,'Content-Type':'application/json'},
-      body: JSON.stringify({model:'llama-3.3-70b-versatile',messages:[{role:'user',content:prompt}],temperature:.8,max_tokens:7500})
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ prompt })
     });
-    if (!res.ok) { const e = await res.json(); throw new Error(e.error?.message||'API error'); }
+
     const data = await res.json();
-    let raw = data.choices[0].message.content.replace(/```json|```/g,'').trim();
+
+    if (!res.ok) {
+      throw new Error(data.error || data.message || 'API error');
+    }
+
+    const raw = data.choices[0].message.content.replace(/```json|```/g, '').trim();
     allArticles = JSON.parse(raw);
+
     renderAll();
     document.getElementById('statCount').textContent = allArticles.length;
-    document.getElementById('statTime').textContent  = new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+    document.getElementById('statTime').textContent =
+      new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
     buildTicker(allArticles);
-  } catch(err) {
+  } catch (err) {
     console.error(err);
-    document.getElementById('featGrid').innerHTML = `<div class="err-panel"><div style="font-family:'Playfair Display',serif;font-size:22px;margin-bottom:12px;color:var(--parchment)">Dispatch Unavailable</div><div style="font-family:'EB Garamond',serif;font-size:15px;color:var(--text-mute);margin-bottom:24px;max-width:420px;margin-left:auto;margin-right:auto">${err.message}</div><button class="refresh-btn" onclick="fetchNews()" style="margin:0 auto"><span>↻</span> Retry</button></div>`;
+    document.getElementById('featGrid').innerHTML =
+      `<div class="err-panel">
+        <div style="font-family:'Playfair Display',serif;font-size:22px;margin-bottom:12px;color:var(--parchment)">Dispatch Unavailable</div>
+        <div style="font-family:'EB Garamond',serif;font-size:15px;color:var(--text-mute);margin-bottom:24px;max-width:420px;margin-left:auto;margin-right:auto">${err.message}</div>
+        <button class="refresh-btn" onclick="fetchNews()" style="margin:0 auto"><span>↻</span> Retry</button>
+      </div>`;
   }
+
   btn.classList.remove('loading');
 }
 
 function renderAll() {
-  const list  = activeTag === 'all' ? allArticles : allArticles.filter(a=>a.tags&&a.tags.includes(activeTag));
-  const feat  = list.slice(0,3);
-  const rest  = list.slice(3);
-  document.getElementById('featCount').textContent   = feat.length + ' articles';
+  const list = activeTag === 'all'
+    ? allArticles
+    : allArticles.filter(a => a.tags && a.tags.includes(activeTag));
+
+  const feat = list.slice(0, 3);
+  const rest = list.slice(3);
+
+  document.getElementById('featCount').textContent = feat.length + ' articles';
   document.getElementById('latestCount').textContent = rest.length + ' articles';
 
   const fg = document.getElementById('featGrid');
@@ -674,74 +485,125 @@ function renderAll() {
     document.getElementById('artsGrid').innerHTML = '';
     return;
   }
+
   fg.innerHTML = '';
-  feat.forEach((a,i) => {
-    const el = i===0 ? mkHero(a) : mkSide(a);
-    if (i===0) el.classList.add('feat-hero');
-    else        el.classList.add('feat-side');
+  feat.forEach((a, i) => {
+    const el = i === 0 ? mkHero(a) : mkSide(a);
+    if (i === 0) el.classList.add('feat-hero');
     fg.appendChild(el);
   });
 
   const ag = document.getElementById('artsGrid');
   ag.innerHTML = '';
-  rest.forEach((a,i) => ag.appendChild(mkList(a,i)));
+  rest.forEach((a, i) => ag.appendChild(mkList(a, i)));
 }
 
 function mkHero(a) {
   const d = document.createElement('div');
-  d.className = 'card card-hero'; d.onclick = ()=>openModal(a);
-  d.innerHTML = `<div class="hero-img"><div class="hero-icon">${icon1(a.tags)}</div></div><div class="hero-body"><div class="c-tags">${tagsHtml(a.tags)}<span class="c-cat">${a.category||'news'}</span></div><div class="t-hero">${a.title}</div><div class="s-hero">${a.summary}</div><div class="c-foot"><div class="c-byline"><strong>${a.source||srcs[0]}</strong>${ago()}</div><div class="c-read">Read →</div></div></div>`;
+  d.className = 'card card-hero';
+  d.onclick = () => openModal(a);
+  d.innerHTML = `
+    <div class="hero-img"><div class="hero-icon">${icon1(a.tags)}</div></div>
+    <div class="hero-body">
+      <div class="c-tags">${tagsHtml(a.tags)}<span class="c-cat">${a.category || 'news'}</span></div>
+      <div class="t-hero">${a.title}</div>
+      <div class="s-hero">${a.summary}</div>
+      <div class="c-foot">
+        <div class="c-byline"><strong>${a.source || srcs[0]}</strong>${ago()}</div>
+        <div class="c-read">Read →</div>
+      </div>
+    </div>`;
   return d;
 }
 
 function mkSide(a) {
   const d = document.createElement('div');
-  d.className = 'card card-side'; d.onclick = ()=>openModal(a);
-  d.innerHTML = `<div class="side-icon">${icon1(a.tags)}</div><div class="side-body"><div class="c-tags">${tagsHtml(a.tags)}</div><div class="t-side">${a.title}</div><div class="s-side">${a.summary}</div><div class="c-foot" style="margin-top:14px;padding-top:12px"><div class="c-byline"><strong>${a.source||srcs[1]}</strong>${ago()}</div><div class="c-read">Read →</div></div></div>`;
+  d.className = 'card card-side';
+  d.onclick = () => openModal(a);
+  d.innerHTML = `
+    <div class="side-icon">${icon1(a.tags)}</div>
+    <div class="side-body">
+      <div class="c-tags">${tagsHtml(a.tags)}</div>
+      <div class="t-side">${a.title}</div>
+      <div class="s-side">${a.summary}</div>
+      <div class="c-foot" style="margin-top:14px;padding-top:12px">
+        <div class="c-byline"><strong>${a.source || srcs[1]}</strong>${ago()}</div>
+        <div class="c-read">Read →</div>
+      </div>
+    </div>`;
   return d;
 }
 
 function mkList(a, i) {
   const d = document.createElement('div');
-  d.className = 'card card-list'; d.style.animationDelay = (i*.07)+'s'; d.onclick = ()=>openModal(a);
-  const num = String(i+4).padStart(2,'0');
-  d.innerHTML = `<div class="c-tags">${tagsHtml(a.tags)}<span class="c-cat">${a.category||'news'}</span></div><div class="c-num">${num}</div><div class="t-list">${a.title}</div><div class="s-list">${a.summary}</div><div class="c-foot"><div class="c-byline"><strong>${a.source||srcs[i%srcs.length]}</strong>${ago()}</div><div class="c-read">Read →</div></div>`;
+  d.className = 'card card-list';
+  d.style.animationDelay = (i * 0.07) + 's';
+  d.onclick = () => openModal(a);
+
+  const num = String(i + 4).padStart(2, '0');
+  d.innerHTML = `
+    <div class="c-tags">${tagsHtml(a.tags)}<span class="c-cat">${a.category || 'news'}</span></div>
+    <div class="c-num">${num}</div>
+    <div class="t-list">${a.title}</div>
+    <div class="s-list">${a.summary}</div>
+    <div class="c-foot">
+      <div class="c-byline"><strong>${a.source || srcs[i % srcs.length]}</strong>${ago()}</div>
+      <div class="c-read">Read →</div>
+    </div>`;
   return d;
 }
 
 function filterBy(tag, btn) {
   activeTag = tag;
-  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   if (allArticles.length) renderAll();
 }
 
 function openModal(a) {
-  document.getElementById('mKicker').textContent = (a.source||'CloudPulse') + ' · ' + (a.category||'news').toUpperCase();
-  document.getElementById('mTitle').textContent  = a.title;
-  document.getElementById('mTags').innerHTML     = tagsHtml(a.tags);
-  document.getElementById('mMeta').innerHTML     = `<span>${ago()}</span><span>·</span><span>${a.source||'CloudPulse'}</span>`;
-  document.getElementById('mBody').innerHTML     = (a.content||a.summary||'').split(/\n+/).filter(p=>p.trim()).map(p=>`<p>${p.trim()}</p>`).join('');
+  document.getElementById('mKicker').textContent = (a.source || 'CloudPulse') + ' · ' + (a.category || 'news').toUpperCase();
+  document.getElementById('mTitle').textContent = a.title;
+  document.getElementById('mTags').innerHTML = tagsHtml(a.tags);
+  document.getElementById('mMeta').innerHTML = `<span>${ago()}</span><span>·</span><span>${a.source || 'CloudPulse'}</span>`;
+  document.getElementById('mBody').innerHTML = (a.content || a.summary || '')
+    .split(/\n+/)
+    .filter(p => p.trim())
+    .map(p => `<p>${p.trim()}</p>`)
+    .join('');
   document.getElementById('mCta').href = '#';
   document.getElementById('veil').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
 
-function veilClick(e) { if(e.target===document.getElementById('veil')) closeModal(); }
-function closeModal() { document.getElementById('veil').classList.remove('open'); document.body.style.overflow=''; }
-document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeModal(); });
+function veilClick(e) {
+  if (e.target === document.getElementById('veil')) closeModal();
+}
+
+function closeModal() {
+  document.getElementById('veil').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeModal();
+});
 
 function buildTicker(articles) {
   const items = articles.map(a => {
-    const t = ((a.tags||[])[0]||'cloud').toUpperCase();
+    const t = ((a.tags || [])[0] || 'cloud').toUpperCase();
     return `<span class="ticker-item"><em>${t}</em>${a.title}</span>`;
   });
-  document.getElementById('tickerTrack').innerHTML = [...items,...items].join('');
+  document.getElementById('tickerTrack').innerHTML = [...items, ...items].join('');
 }
 
-document.getElementById('metaDate').textContent = new Date().toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+document.getElementById('metaDate').textContent = new Date().toLocaleDateString('en-US', {
+  weekday:'long',
+  year:'numeric',
+  month:'long',
+  day:'numeric'
+});
 
-setInterval(fetchNews, 30*60*1000);
+setInterval(fetchNews, 30 * 60 * 1000);
 fetchNews();
 </script>
 </body>
