@@ -176,25 +176,134 @@ body{font-family:'EB Garamond',Georgia,serif;background:var(--bg);color:var(--te
 .err-panel{grid-column:1/-1;text-align:center;padding:80px 40px;background:var(--card-bg)}
 
 /* ═══ MODAL ═══ */
-.veil{display:none;position:fixed;inset:0;z-index:300;background:rgba(2,2,2,.94);backdrop-filter:blur(14px);align-items:center;justify-content:center;padding:28px}
+.veil{
+  display:none;position:fixed;inset:0;z-index:300;
+  background:rgba(2,2,2,.94);backdrop-filter:blur(14px);
+  align-items:center;justify-content:center;padding:28px
+}
 .veil.open{display:flex;animation:fadeVeil .2s ease}
 @keyframes fadeVeil{from{opacity:0}to{opacity:1}}
-.mbox{background:#0a0a0a;border:1px solid var(--border);max-width:750px;width:100%;max-height:88vh;overflow-y:auto;position:relative;animation:slideUp .3s ease;scrollbar-width:thin;scrollbar-color:var(--gold-dim) transparent}
+
+.mbox{
+  background:#0f0e0c;
+  border:1px solid var(--border);
+  max-width:780px;width:100%;max-height:88vh;
+  overflow-y:auto;position:relative;
+  animation:slideUp .3s ease;
+  scrollbar-width:thin;scrollbar-color:var(--gold-dim) transparent
+}
 @keyframes slideUp{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
-.mbox-bar{height:2px;background:linear-gradient(90deg,var(--gold-dim),var(--gold),var(--gold-lt),var(--gold),var(--gold-dim))}
-.mbox-inner{padding:48px 52px}
-.m-close{position:absolute;top:22px;right:26px;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--text-mute);background:none;border:1px solid var(--border);padding:8px 14px;cursor:pointer;transition:all .2s}
+
+/* Gold accent bar at top */
+.mbox-bar{height:3px;background:linear-gradient(90deg,var(--gold-dim),var(--gold),var(--gold-lt),var(--gold),var(--gold-dim))}
+
+/* ── Modal header toolbar ── */
+.mbox-toolbar{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:16px 28px 0;
+  border-bottom:1px solid var(--border-lt);
+  padding-bottom:14px;
+  position:sticky;top:0;
+  background:#0f0e0c;
+  z-index:10;
+}
+.m-back{
+  font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;
+  color:var(--gold);background:none;
+  border:1px solid var(--gold-dim);
+  padding:8px 18px;cursor:pointer;
+  transition:all .2s;
+  display:flex;align-items:center;gap:8px;
+}
+.m-back:hover{background:rgba(201,168,76,.08);border-color:var(--gold);color:var(--gold-lt)}
+.m-back-arrow{font-size:13px;line-height:1;transition:transform .2s}
+.m-back:hover .m-back-arrow{transform:translateX(-3px)}
+
+.m-close{
+  font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;
+  color:var(--text-mute);background:none;
+  border:1px solid var(--border);
+  padding:8px 14px;cursor:pointer;
+  transition:all .2s;
+}
 .m-close:hover{color:var(--text-dim);border-color:var(--gold-dim)}
-.m-kicker{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:3.5px;text-transform:uppercase;color:var(--gold-dk);margin-bottom:18px}
-.m-title{font-family:'Playfair Display',Georgia,serif;font-size:32px;font-weight:700;line-height:1.25;color:var(--parchment);margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border-lt)}
-.m-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}
-.m-meta{font-family:'DM Mono',monospace;font-size:9.5px;color:var(--text-mute);letter-spacing:.8px;margin-bottom:32px;display:flex;gap:18px;flex-wrap:wrap}
-.m-body{font-family:'EB Garamond',Georgia,serif;font-size:17px;line-height:1.9;color:#a89870}
-.m-body p{margin-bottom:18px}
-.m-body p:first-child::first-letter{font-family:'Playfair Display',serif;font-size:66px;font-weight:900;float:left;line-height:.72;margin:8px 12px 0 0;color:var(--gold)}
-.m-divider{width:56px;height:1px;background:var(--gold-dim);margin:32px 0}
-.m-cta{display:inline-block;font-family:'DM Mono',monospace;font-size:9.5px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);border:1px solid var(--gold-dim);padding:12px 24px;text-decoration:none;transition:all .25s}
-.m-cta:hover{background:rgba(201,168,76,.1);border-color:var(--gold)}
+
+/* Modal content body */
+.mbox-inner{padding:36px 52px 52px}
+
+.m-kicker{
+  font-family:'DM Mono',monospace;font-size:9px;letter-spacing:3.5px;
+  text-transform:uppercase;color:var(--gold);
+  margin-bottom:16px;
+  display:flex;align-items:center;gap:12px;
+}
+.m-kicker::after{content:'';flex:1;height:1px;background:var(--border-lt)}
+
+.m-title{
+  font-family:'Playfair Display',Georgia,serif;font-size:32px;font-weight:700;
+  line-height:1.22;color:var(--parchment);
+  margin-bottom:22px;padding-bottom:22px;
+  border-bottom:1px solid var(--border-lt)
+}
+
+.m-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+
+.m-meta{
+  font-family:'DM Mono',monospace;font-size:9.5px;
+  color:var(--text-dim);
+  letter-spacing:.8px;margin-bottom:32px;
+  display:flex;gap:18px;flex-wrap:wrap;
+  background:rgba(201,168,76,.04);
+  border:1px solid var(--border-lt);
+  padding:12px 16px;
+}
+
+/* ── Article body text — BRIGHT & READABLE ── */
+.m-body{
+  font-family:'EB Garamond',Georgia,serif;
+  font-size:18px;
+  line-height:1.95;
+  color:#d4c5a9;  /* warm bright parchment — clearly legible */
+}
+.m-body p{margin-bottom:22px}
+.m-body p:last-child{margin-bottom:0}
+
+/* Drop cap on first paragraph */
+.m-body p:first-child::first-letter{
+  font-family:'Playfair Display',serif;
+  font-size:72px;font-weight:900;
+  float:left;line-height:.68;
+  margin:10px 14px 0 0;
+  color:var(--gold);
+  text-shadow:0 2px 20px rgba(201,168,76,.3);
+}
+
+.m-divider{
+  width:56px;height:2px;
+  background:linear-gradient(90deg,var(--gold-dk),var(--gold));
+  margin:36px 0;
+  border-radius:1px;
+}
+
+.m-cta{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:'DM Mono',monospace;font-size:9.5px;
+  letter-spacing:3px;text-transform:uppercase;
+  color:var(--gold);border:1px solid var(--gold-dim);
+  padding:14px 28px;text-decoration:none;
+  transition:all .25s;background:rgba(201,168,76,.04);
+}
+.m-cta:hover{background:rgba(201,168,76,.12);border-color:var(--gold);letter-spacing:4px}
+
+/* ── Reading progress bar ── */
+.m-progress{
+  position:sticky;bottom:0;left:0;right:0;height:2px;
+  background:var(--border-lt);
+}
+.m-progress-fill{
+  height:100%;background:linear-gradient(90deg,var(--gold-dk),var(--gold));
+  width:0%;transition:width .1s;
+}
 
 ::-webkit-scrollbar{width:5px}
 ::-webkit-scrollbar-track{background:transparent}
@@ -209,9 +318,11 @@ body{font-family:'EB Garamond',Georgia,serif;background:var(--bg);color:var(--te
 @media(max-width:680px){
   .arts-grid{grid-template-columns:1fr}
   .mh-wordmark{font-size:46px}
-  .mbox-inner{padding:32px 20px}
+  .mbox-inner{padding:24px 20px 36px}
   .page{padding:0 14px 80px}
   .nav-inner{padding:0 14px}
+  .m-title{font-size:24px}
+  .m-body{font-size:16px}
 }
 </style>
 </head>
@@ -349,10 +460,18 @@ body{font-family:'EB Garamond',Georgia,serif;background:var(--bg);color:var(--te
 
 <!-- Modal -->
 <div class="veil" id="veil" onclick="veilClick(event)">
-  <div class="mbox">
+  <div class="mbox" id="mbox">
     <div class="mbox-bar"></div>
-    <div class="mbox-inner">
+
+    <!-- Sticky toolbar: back + close -->
+    <div class="mbox-toolbar">
+      <button class="m-back" onclick="closeModal()">
+        <span class="m-back-arrow">←</span> Back to News
+      </button>
       <button class="m-close" onclick="closeModal()">ESC / CLOSE</button>
+    </div>
+
+    <div class="mbox-inner">
       <div class="m-kicker" id="mKicker"></div>
       <div class="m-title"  id="mTitle"></div>
       <div class="m-tags"   id="mTags"></div>
@@ -361,6 +480,9 @@ body{font-family:'EB Garamond',Georgia,serif;background:var(--bg);color:var(--te
       <div class="m-divider"></div>
       <a class="m-cta" id="mCta" href="#" target="_blank">Read Full Article →</a>
     </div>
+
+    <!-- Reading progress bar -->
+    <div class="m-progress"><div class="m-progress-fill" id="mProgress"></div></div>
   </div>
 </div>
 
@@ -383,7 +505,6 @@ function ago() {
   return m < 60 ? m + 'm ago' : Math.floor(m/60) + 'h ' + m%60 + 'm ago';
 }
 function tagsHtml(tags) {
-  // tags can be a string (from news.js) or an array — handle both
   const arr = Array.isArray(tags) ? tags : (tags ? [tags] : []);
   return arr.map(t => `<span class="tag ${tagCls[t]||'tag-devops'}">${tagLbl[t]||t}</span>`).join('');
 }
@@ -392,7 +513,7 @@ function icon1(tags) {
   return tagIcon[arr[0]] || '☁';
 }
 
-// ── Fetch from our own Cloudflare Pages Function ───────────
+// ── Fetch from Cloudflare Pages Function ───────────────────
 async function fetchNews() {
   const btn = document.getElementById('refreshBtn');
   btn.classList.add('loading');
@@ -404,7 +525,6 @@ async function fetchNews() {
   document.getElementById('latestCount').textContent = '';
 
   try {
-    // ✅ KEY CHANGE: call OUR backend function, not Groq directly
     const res = await fetch('/api/news', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -416,7 +536,6 @@ async function fetchNews() {
     const articles = await res.json();
     if (!Array.isArray(articles) || articles.length === 0) throw new Error('No articles returned');
 
-    // Normalise: category field may be used as tags in news.js fallback data
     allArticles = articles.map((a, i) => ({
       ...a,
       id: a.id ?? i + 1,
@@ -434,7 +553,7 @@ async function fetchNews() {
     document.getElementById('featGrid').innerHTML = `
       <div class="err-panel">
         <div style="font-family:'Playfair Display',serif;font-size:22px;margin-bottom:12px;color:var(--parchment)">Dispatch Unavailable</div>
-        <div style="font-family:'EB Garamond',serif;font-size:15px;color:var(--text-mute);margin-bottom:24px;max-width:420px;margin-left:auto;margin-right:auto">${err.message}</div>
+        <div style="font-family:'EB Garamond',serif;font-size:15px;color:var(--text-dim);margin-bottom:24px;max-width:420px;margin-left:auto;margin-right:auto">${err.message}</div>
         <button class="refresh-btn" onclick="fetchNews()" style="margin:0 auto"><span>↻</span> Retry</button>
       </div>`;
   }
@@ -534,15 +653,44 @@ function openModal(a) {
   document.getElementById('mKicker').textContent = (a.source||'CloudPulse') + ' · ' + (a.category||'news').toUpperCase();
   document.getElementById('mTitle').textContent  = a.title;
   document.getElementById('mTags').innerHTML     = tagsHtml(a.tags);
-  document.getElementById('mMeta').innerHTML     = `<span>${ago()}</span><span>·</span><span>${a.source||'CloudPulse'}</span>`;
-  document.getElementById('mBody').innerHTML     = (a.content || a.summary || '').split(/\n+/).filter(p => p.trim()).map(p => `<p>${p.trim()}</p>`).join('');
+  document.getElementById('mMeta').innerHTML     = `<span>📅 ${ago()}</span><span>·</span><span>✍ ${a.source||'CloudPulse'}</span><span>·</span><span>🏷 ${(a.category||'news').toUpperCase()}</span>`;
+
+  // Use content if available and meaningful, otherwise fall back to summary
+  const bodyText = (a.content && a.content.trim().length > a.summary.trim().length)
+    ? a.content
+    : a.summary;
+
+  document.getElementById('mBody').innerHTML = bodyText
+    .split(/\n+/)
+    .filter(p => p.trim())
+    .map(p => `<p>${p.trim()}</p>`)
+    .join('');
+
   document.getElementById('mCta').href = '#';
-  document.getElementById('veil').classList.add('open');
+
+  // Show modal
+  const veil = document.getElementById('veil');
+  veil.classList.add('open');
   document.body.style.overflow = 'hidden';
+
+  // Scroll mbox to top
+  const mbox = document.getElementById('mbox');
+  mbox.scrollTop = 0;
+
+  // Attach scroll progress tracker
+  mbox.onscroll = () => {
+    const max = mbox.scrollHeight - mbox.clientHeight;
+    const pct = max > 0 ? (mbox.scrollTop / max) * 100 : 100;
+    document.getElementById('mProgress').style.width = pct + '%';
+  };
 }
 
 function veilClick(e) { if (e.target === document.getElementById('veil')) closeModal(); }
-function closeModal() { document.getElementById('veil').classList.remove('open'); document.body.style.overflow = ''; }
+function closeModal() {
+  document.getElementById('veil').classList.remove('open');
+  document.body.style.overflow = '';
+  document.getElementById('mProgress').style.width = '0%';
+}
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
 function buildTicker(articles) {
